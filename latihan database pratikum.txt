@@ -1,0 +1,193 @@
+# 
+
+create table categories (
+
+id bigint(20) not null auto_increment primary key,
+
+parent_id bigint(20) null,
+
+name varchar(255) not null,
+
+foreign key(parent_id) references categories (id) on delete cascade on update cascade
+
+);
+
+
+create table products (
+
+id bigint(20) not null auto_increment primary key,
+
+name varchar(255) not null,
+
+price double(10, 2) not null,
+
+description text not null,
+
+stock int(10) not null
+
+)
+
+
+create table category_product (
+
+id bigint(20) not null auto_increment primary key,
+
+category_id bigint(20) null,
+
+product_id bigint(20) null,
+
+foreign key(category_id) references categories (id) on delete cascade on update cascade,
+
+foreign key(product_id) references products(id) on delete cascade on update cascade
+
+);
+
+
+create table orders (
+
+id bigint(20) not null auto_increment primary key,
+
+number varchar(16) not null,
+
+total_price double(10,2) not null,
+
+total_product int(11) not null
+
+);
+
+
+create table order_items (
+
+id bigint(20) not null auto_increment primary key,
+
+order_id bigint(20) null,
+
+product_id bigint(20) null,
+
+qty int(11) null,
+
+price double(10,2) not null,
+
+foreign key (order_id) references orders (id) on delete cascade on update cascade,
+
+foreign key (product_id) references products (id) on delete cascade on update cascade
+
+);
+
+
+create table payments (
+
+id bigint(20) not null auto_increment primary key,
+
+order_id bigint(20) null,
+
+note mediumtext null,
+
+picture varchar(255) null,
+
+foreign key (order_id) references orders (id) on delete cascade on update cascade
+
+)
+
+
+
+
+====== 
+-nama aplikasi Dbeaver
+
+->tugas 
+1 buat tabel coustumerss dan hubungkan ke tabel orders
+2 buat table "carts" dgn isi : id, customer_id, product_id, qty.
+
+======
+
+# 
+
+create table categories (
+
+id bigint(20) not null auto_increment primary key,
+
+parent_id bigint(20) null,
+
+name varchar(255) not null,
+
+foreign key(parent_id) references categories (id) on delete cascade on update cascade
+
+);
+
+
+create table products (
+
+id bigint(20) not null auto_increment primary key,
+
+name varchar(255) not null,
+
+price double(10, 2) not null,
+
+description text not null,
+
+stock int(10) not null
+
+)
+
+
+create table category_product (
+
+id bigint(20) not null auto_increment primary key,
+
+category_id bigint(20) null,
+
+product_id bigint(20) null,
+
+foreign key(category_id) references categories (id) on delete cascade on update cascade,
+
+foreign key(product_id) references products(id) on delete cascade on update cascade
+
+);
+
+
+create table orders (
+
+id bigint(20) not null auto_increment primary key,
+
+number varchar(16) not null,
+
+total_price double(10,2) not null,
+
+total_product int(11) not null
+
+);
+
+
+create table order_items (
+
+id bigint(20) not null auto_increment primary key,
+
+order_id bigint(20) null,
+
+product_id bigint(20) null,
+
+qty int(11) null,
+
+price double(10,2) not null,
+
+foreign key (order_id) references orders (id) on delete cascade on update cascade,
+
+foreign key (product_id) references products (id) on delete cascade on update cascade
+
+);
+
+
+create table payments (
+
+id bigint(20) not null auto_increment primary key,
+
+order_id bigint(20) null,
+
+note mediumtext null,
+
+picture varchar(255) null,
+
+foreign key (order_id) references orders (id) on delete cascade on update cascade
+
+)

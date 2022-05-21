@@ -1,0 +1,156 @@
+->buat projec
+django-admin startproject mywebset
+->jalankan server
+manage.py runserver
+->buat app
+manage.py startapp nameApp
+->migrasi database
+manage.py migrate
+->mensinkronkan tabel colom django ke mysql xmpp
+*manage.py makemigrations
+*manage.py migrate
+->membukak local hos di jango webbrouser
+localhost:8000
+->membuat superuser untuk mengisi admin dijango
+manage.py createsuperuser
+lalu bukak admin.py untuk mengelolah localhostnya
+->menambahkan colom di database dengan membuat variabel di models 
+dengan menambahkan default di variabelnya atau isi variabelnya
+->menambahkan waktu pilih 1 lalu ketik timezone.now
+->manage.py makemigrations
+->manage.py migrate
+membukak python shell
+->manage.py shell
+
+
+==> membuat from agar terkonex dapat terisi di post {%csrf_token%}
+==========================================
+melakukan manipulasi data di databes
+->Pous.objects.create(id = "value")
+->Pous.objects.all()[1].delet()
+->pous.objects.all()
+->a = Pous.objects.all()[0]
+->a.judul = "judul baru"
+->a.save()
+->looping sederhana
+->repr(semuapost)
+->len(semuapost)
+==========================================
+contoh jalankan :
+
+C:\Users\Dzaky Faihalariq Pir\Downloads\python oop\latihan_dijango\latihan9>manage.py shell
+Python 3.7.0 (v3.7.0:1bf9cc5093, Jun 27 2018, 04:59:51) [MSC v.1914 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from blog.models import Pous
+>>> Pous
+<class 'blog.models.Pous'>
+>>> Pous.objects.all()
+<QuerySet []>
+>>> Pous.objects.all()
+<QuerySet [<Pous: 1. Pembuatan blog>]>
+>>> Pous.objects.all()
+<QuerySet [<Pous: 1. Pembuatan blog>, <Pous: 2. pembuatan blog kedua>]>
+>>> #menambahkan data
+>>> Pous.objects.create(judul ="viral!!!",body="lulusan teknik informatika mendapatkan predikat cumlaod seluruh prodi",category = "berita")
+<Pous: 3. viral!!!>
+>>> semuapos = Pous.objects.all()
+>>> semuapos
+<QuerySet [<Pous: 1. Pembuatan blog>, <Pous: 2. pembuatan blog kedua>, <Pous: 3. viral!!!>]>
+>>> #menghapus salah satu pous
+>>> pos3 = Pous.objects.all()[2]
+>>> pos3
+<Pous: 3. viral!!!>
+>>> pos3 = Pous.objects.all()[1]
+>>> pos3
+<Pous: 2. pembuatan blog kedua>
+>>> pos3.delet()
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+AttributeError: 'Pous' object has no attribute 'delet'
+>>> pos3.delete()
+(1, {'blog.Pous': 1})
+>>> semuapos
+<QuerySet [<Pous: 1. Pembuatan blog>, <Pous: 3. viral!!!>]>
+>>> #ubah data di pous
+>>> semuapos
+<QuerySet [<Pous: 1. Pembuatan blog>, <Pous: 3. viral!!!>]>
+>>> pos1 = Pous.objects.all()[0]
+>>> pos1
+<Pous: 1. Pembuatan blog>
+>>> pos1.judul="hallo dunia ku"
+>>> pos1.save()
+>>> semuapos
+<QuerySet [<Pous: 1. hallo dunia ku>, <Pous: 3. viral!!!>]>
+>>> Pous.objects.all()
+<QuerySet [<Pous: 1. hallo dunia ku>, <Pous: 3. viral!!!>]>
+>>> for pos in semuapos:
+...     print(pos.judul)
+...
+hallo dunia ku
+viral!!!
+>>> len(semuapos)
+2
+>>>
+==================================================
+->post.objects.get(id=5) #mengambil berdasarkan id nya
+->post.objects.get(judul="....") # mengambil berdasarkan value nya
+# mengambil multipel data
+->post.objects.filter(category="....")
+#pengambilan data kecuali dalam pengambilan
+->Post.objects.exclude(categori="...")
+#mengambil data yang mencari agar tidak sensitif(fleksibel)(lowercase == appercase)
+->post.objects.get(namacolom__iexact = ".......")
+#mengurutkan data
+->post.objects.order_by("namacolom")
+#memanggil isi dari colom nya saja
+->post.objects.all().values('namacolom')
+->post.objects.values('namacolom').distinct()#mengambil yang uniknya saja
+->post.objects.all().values_list('namacolom')
+webset(django querysets)sercing di google
+membuat bilangan otomatis di tabel 1 sampai seterusnya
+->{{forloop.counter}}
+membuat dan memangil sintax di html lainnya 
+dari html satu ke lainnya:
+-> {% extends "tmplet.html" %}
+-> {% block namavariabel %}
+	----sintaks-----
+   {% endblock namavariabel %}
+mengambil file static
+->{% static 'css/styles.css' %}
+->{% static 'img/banner_home.png' %}
+mengambil dan menghubungkan file html 
+-> {%include "snippets/styles.htm"%}
+-> {%extends "base.htm"%} untuk inheritens
+mengambil nilai di ling web untuk nantinya
+melakukan CRUD
+->variabel_name == variabel di fungsi
+->  url('(?P<variabe_name>[0-9]+)/', viwes.angka),
+->  url('(?P<variabe_name>[0-9]{nilai_digit_diperlukan})/', viwes.angka),
+variabel untuk data waktu
+-> models.DateTimeField(auto_now_add=True)
+-> models.DateTimeField(auto_now=True)
+memotong text yang banyak di database untuk di
+tampilkan :
+-> {{post.body|truncatechars:200}}
+
+membuat static:
+->
+STATICFILES_DIRS = [
+    BASE_DIR/'static',
+]
+membuat url pemanggil ling dari html
+->{% url 'category'%}
+->{% url 'khusus' variabel='Bagian-khusus'%}## jika ada inputan
+
+<<<<<< JUMBOTRON >>>>>>>>>
+ <div class="p-5 mb-4 bg-light rounded-3">
+        <div class="container-fluid py-5">
+            <h1 class="display-5 fw-bold">Custom jumbotron</h1>
+            <p class="col-md-8 fs-4">Using a series of utilities, you can create this jumbotron, just like the one in
+                previous versions of Bootstrap. Check out the examples below for how you can remix and restyle it to
+                your liking.</p>
+            <button class="btn btn-primary btn-lg" type="button">Example button</button>
+        </div>
+    </div>
+===========================

@@ -1,0 +1,36 @@
+Pemmbelajaran webb dan tool nya:
+-> required : berguna untuk mencegah from tidak kosong
+-> Situs senipet menyisip code di blog:
+   https://pastebin.com/
+->menghilangkan copyrige di bloger :
+1. style='visibility:hidden'
+2. caranya:
+pastekan script ini dibawah class footer
+
+
+<!-- tambahan ganti redirect link Copyright -->
+
+<p style='text-align:center;'>
+Copyright 2020 <a href='link website kalian'>nama website kalian</a> All Right Reseved</p>
+<div class='ty-copy-container row' style='font-size:1px; opacity:0;'>
+
+<!-- ganti redirect link Copyright selesai -->
+
+
+
+
+
+tambahkan </div> sebagai penutup 
+
+<!-- ganti redirect link Copyright selesai -->
+  
+</div>
+  
+<!-- ganti redirect link Copyright selesai --> 
+
+=============================
+pembelajaran web pratikum
+
+
+
+

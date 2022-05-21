@@ -1,0 +1,85 @@
+-->Configurasi user name dan email di git bas:
+->git config --global user.name "dzakyfaishalariq"
+->git config --global user.email "dzakyfaishalariq@gmail.com"
+-Convigurasi dengan vs code:
+->git config --global core.editor "code --wait"
+->git config --global diff.tool "default-difftool"
+->git config --global difftool.default-difftool.cmd "code --wait --diff \$LOCAL \$REMOTE"
+-->melihat apakah sudah diconfigurasi atau tidak digit:
+->git config --list --show-origin
+-->membuat repository
+->namafolder git init
+-->mengecek isi gitnya
+-> cd .git
+-> ls -l
+-->membuka vs code di file secara langsung di git
+-> code .
+--> mengecek perubahan apa saja yang terjadi di file kita
+-> git status
+--> menambahkan ke staging index
+->git add namafile.py
+-->menambahkan ke repository secara permanen
+-> git commit -m "Menambahkan file pertama saya di python tes.py"
+-->melihat perubahan di git
+-> git diff
+--> memindahkan semuanya di stejing index
+->git add .
+->git add file1.py file2.py
+--> menghapus semua file di working directoriy
+-> git clean -f
+--> membatalkan perubahan dan membatalkan penghapusan file
+-> git restore namafile.py
+-> git restore --staget namafile.py ("apabila membatalkan penghapusan di staging indext di ubah ke working directory)
+-->melihat historiy atau log di git
+-> git log(fersi panjang)
+-> git log --oneline(fersi pendek)
+-->melihat comit log dengan hubungan comit sebelumnya
+->git log --oneline --graph
+--> melihat ditail comitnya
+->git show hash contoh: git show a0d4ea3
+dari
+"
+* a0d4ea3 (HEAD -> master) perubahan ke 3
+* 5b8e5f8 perubahan kedua
+* d4afb7f masukan file kedua
+* f099744 menambahkan file tes.py dengan perulangan
+* 9d74e97 menambahkan file ke directory secara permanen tes.py
+"
+-->membandingkan commit
+->git diff hash1 hash2
+-->membandingkan commit di vscode
+->gif difftool hash1 hash2
+-->meriname file di git
+->pertama lakukan rename
+->kemudian lakukan:
+  a. git add filedelet.py
+  b. git add filebaru.py
+->selanjutnya :
+  git commit -m "comentar"
+-->Reset commit
+-> mode git ada 3 
+   a .--soft = tidak melakukan perubahan apapun
+   b .--mixed(default)
+   c .--hard
+-> lakukan :
+   git reset --soft hash
+-->Melakukan git amend (minimpa file sebelumnya)
+->git commit --amend -m "comentar"
+-->mengaplot ke github
+->git remote add origin https://github.com/dzakyfaishalariq/latihanOnlainPemograman.git
+->git push -u origin master
+--> melihat origin yang di tuju
+->git remote show origin
+--> mengaplot ke local
+->git clone (link) #dibuat di file baru yang tidak ada repository
+-->memperbarui untuk anggota
+->git pull
+-->push anggota
+->git push
+-->percabangan git
+->git branch // melihat brench yang ada
+->git checkout -b test-breanch // membuat breanch baru
+->git checkout master // kembali ke brench master atau awal
+->git branch -d namabreanc // menghapus nama breanch yang sudah di buat
+// terlebih dahulu ke brench utama untuk menggabungkan branch
+->git marge namabranch // menggabungkan branch

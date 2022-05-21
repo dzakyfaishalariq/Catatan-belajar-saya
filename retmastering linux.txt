@@ -1,0 +1,50 @@
+Retmastering Sistem Operasi Ubuntu linux
+
+1. Sebelum masuk ke dwonload dan instal semua bahan hendak memasukan dulu atau pindah ke bagian user admin atau root : 
+$ sudo su
+
+2. Dwonload file yang diperlukan 
+	- Walpaper Progaming 
+	- Tema di web gnome-look
+	- icon di web gnome-look
+3. melakukan retmastering :
+	a. install Gnome tweak tool
+		-update : apt-get update
+		-install : apt-get install gnome-tweak-tool
+
+	b. Seting Tema : 
+		-Tema : Otis (https://www.gnome-look.org/p/1619506)
+		-Bukak terminal pada folder dwonload lalu extrak file tema yang sudah ada
+		 : perintah -> command :$ tar -xf <nama file tema.tar.xz>
+		-pindahkan folder hasil extrak ke direktory/home/.themes
+		 : perintah -> command :$ cp -R <nama folder tema> /home/<akun user>/.themes/Otis-tema
+		-Bukak aplikasi tweaks untuk menjalankan tema nya
+			a. kelik appearnce
+			b. pilih Themes
+			c. ubah ke tema yang sudah di install
+		
+	c. Setting Icon :
+		-Icon : Shadows-Dark-Icons ( https://www.gnome-look.org/p/1717303 )
+		-Bukak Terminal pada folder dwonload lalu extrak file icon yang sudah ada
+		 : perintah -> command :$ tar -xf <nama file icon.tar.xz>
+		-Pindahkan hasil extrak ke direktory/home/.icons
+		 : perintah -> command :$ cp -R <nama folder icon> "/home/<akun user>/.icons/Shadows-icons"
+		-Bukak ulang aplikasi gnome tweak tool pilih icon yang sudah di terapkan
+
+	d. seting walpaper:
+		dwonload gambar walpapernya dan masukan kedalam folder dwonload 
+		kemudian membukak tweaks nya utntuk mengubah baground walpapaer
+	e. Kemudian kita akan menginstall atribut pemograman di linux ubuntu
+		- dwonload C++
+		- dwonload python
+		- dwonload java
+		- dwonload Vs code
+		- dwonload xampp
+	
+	f. merubah nama distro
+		- sudo gedit /etc/issue
+		- sudo gedit /etc/lsb-release lsb_release-a
+	
+	g. membuat iso atau vbox untuk nantinya di jalan kan ke virtual mesin lainnya
+
+		

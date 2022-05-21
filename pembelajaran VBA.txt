@@ -1,0 +1,8 @@
+=>untuk membuat fungsi tombol di VBA:
+Sub Test()
+	"pesan"
+End sub
+=>Bukan untuk fungsi tombol di VBA:
+Public Sub Tes2()
+	"pesan"
+End sub

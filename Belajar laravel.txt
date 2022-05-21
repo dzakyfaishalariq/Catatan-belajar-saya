@@ -1,0 +1,565 @@
+Belajar Larafel
+->membuat file laravelnya:
+--> composer create-project laravel/laravel namafolder-laravel
+->menjalankan server:
+-->php artisan serve
+
+cara ke dua
+->instal laravelnya:
+-->composer global require laravel/installer
+->buat file applikasinya :
+-->laravel new example-app
+->menjalankan server:
+-->php artisan serve
+
+pembelajaran :
+1. fokus ke routers ke file web.php
+Route::get('/', function () {
+    return view('welcome'); // nama file ditulis di antara tanda petik
+});
+2. jangan lupa untuk membuat file di viwes gunakan namafile.blade.php
+  -> kegunaan blade untuk melakukan templating 	enjing dalam laravel.
+
+3.menggunakan sintaks blade
+	-> {{$variabel}}
+4. megunakan templating blade
+	1. extends('namafolder.app')
+	2. @yielid('namaconten') // diletakan di 			leyouts app nya
+	3. @section('contentSaya')
+		....conten....
+	   @endsection
+	4. @include('partials.navbar') // digunakan 		untuk menggunakan atribut yang dipisah 		dari lyouts.main
+	5.  {{ ($title === "Blog")? 'active' : '' }}
+		//untuk melakukan pengerakan tombol 			active dari bootstrep
+	6. @add()//digunakan untuk melihat dom and 			day untuk melihat isi variabel mirip 			var_dam
+	7. membuat parameter ling 						/blog/{{$post['']}}
+	8. menggunakan perulangan di blade
+		@foreach($posts as $post)
+		@endforeach 
+5. model dalam laravel
+	membuat terlebih dahulu
+	$ php artisan make:model Post
+	$ php artisan make:model namefile -mfs
+	yang mana -mfs itu  adalah 
+	{m -> melakukan migrasi
+	 f -> membuat file factorynya
+	 s -> membuat sider nya}
+6. controler dalam laravel
+	membuat terlebih dahulu
+	$php artisan make:controller namacontroller 
+7. membuat dan menyambungkan ke database
+	-membuat tabel:
+		php artisan make:migration nameTabel
+		atau
+		php artisan migrate
+		ingat ubahnya di file .env
+	-menghapus semua tabel
+		 php artisan migrate:rollback
+	-melakukan keduanya sekaligus menghapus lalu membuat semuanya lagi
+		php artisan migrate:fresh(recomendet)
+		php artisan migrate:fresh --seed (sekalian memasukan databaseSeed nya)
+8. melakukan interaksi terhadap database
+	php artisan tinker 
+	contoh pembuatannya:
+
+Dzaky Faihalariq Pir@DESKTOP-1NAPO7I MINGW64 /f/Data Asus/Aplikasi_Larafel/latihan1-laravel
+$ php artisan tinker
+Psy Shell v0.11.2 (PHP 8.1.0 — cli) by Justin Hileman
+>>> $user = new App\Models\User
+=> App\Models\User {#3506}
+>>> $user = new User
+[!] Aliasing 'User' to 'App\Models\User' for this Tinker session.
+=> App\Models\User {#3504}
+>>> $user->name = 'Dzaky Faishalariq';
+=> "Dzaky Faishalariq"
+>>> $user->email = 'dzakyfaishalariq@gmail.com'
+=> "dzakyfaishalariq@gmail.com"
+>>> $user->password = 'bcrypt('dzaky2711')
+PHP Parse error: Syntax error, unexpected T_STRING on line 1
+>>> $user->password = bcrypt('dzaky2711')
+=> "$2y$10$zRL9IQc./En09sCNyBZEDeTQE5N4vYVO0xU/ewmTMsZK7L36H0o8u"
+>>> $user->save()
+=> true
+>>>
+menambahkan isi tabel baru
+>>> $user = new User
+=> App\Models\User {#3833}
+>>> $user->name = 'Fahri haikal'
+=> "Fahri haikal"
+>>> $user->email = 'fahri@gmail.com'
+=> "fahri@gmail.com"
+>>> $user->password = bcrypt('12345')
+=> "$2y$10$ITDp8N6gYMvNt3dVqp.yRuQcFDarjgs/erRCbV6ShGOjH7sP0Gniu"
+>>> $user->all()
+=> Illuminate\Database\Eloquent\Collection {#3507
+     all: [
+       App\Models\User {#3514
+         id: 1,
+         name: "Dzaky Faishalariq",
+         email: "dzakyfaishalariq@gmail.com",
+         email_verified_at: null,
+         #password: "$2y$10$zRL9IQc./En09sCNyBZEDeTQE5N4vYVO0xU/ewmTMsZK7L36H0o8
+u",
+         #remember_token: null,
+         created_at: "2022-03-19 15:06:11",
+         updated_at: "2022-03-19 15:06:11",
+       },
+     ],
+   }
+>>> $user->save()
+mengambil data
+>>> $user->first()
+=> App\Models\User {#4447
+     id: 1,
+     name: "Dzaky Faishalariq",
+     email: "dzakyfaishalariq@gmail.com",
+     email_verified_at: null,
+     #password: "$2y$10$zRL9IQc./En09sCNyBZEDeTQE5N4vYVO0xU/ewmTMsZK7L36H0o8u",
+     #remember_token: null,
+     created_at: "2022-03-19 15:06:11",
+     updated_at: "2022-03-19 15:06:11",
+   }
+>>> $user->find(2)
+=> App\Models\User {#3514
+     id: 2,
+     name: "Fahri haikal",
+     email: "fahri@gmail.com",
+     email_verified_at: null,
+     #password: "$2y$10$ITDp8N6gYMvNt3dVqp.yRuQcFDarjgs/erRCbV6ShGOjH7sP0Gniu",
+     #remember_token: null,
+     created_at: "2022-03-19 15:19:08",
+     updated_at: "2022-03-19 15:19:08",
+   }
+>>> $user->find0Fail(200)
+BadMethodCallException with message 'Call to undefined method App\Models\User::f
+ind0Fail()'
+>>>
+
+9. membuat model dengan nama post
+	$ php artisan make:model -m Post
+10. interaksi query
+	contohnya
+>>> $post::all()
+=> Illuminate\Database\Eloquent\Collection {#4444
+     all: [
+       App\Models\Post {#4446
+         id: 1,
+         title: "judul kedua saya blog",
+         excerpt: """
+           orem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem saepe, dolore facere
+dolorum dolores atque\r\n
+           officia aperiam, repellendus sit, quia sed neque quae earum veritatis provident hic id ratio
+ne quaerat.
+           """,
+         body: """
+           Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem saepe, dolore facere
+ dolorum dolores atque\r\n
+           officia aperiam, repellendus sit, quia sed neque quae earum veritatis provident hic id ratio
+ne quaerat. Deserunt quam,\r\n
+           ipsum, expedita voluptate vitae nam nobis, accusantium consequuntur possimus eveniet molesti
+ae doloribus inventore\r\n
+           dolore quasi tempore sunt blanditiis itaque id cumque aut animi vero ab? Repellendus eum par
+iatur magni repudiandae vel\r\n
+           placeat laboriosam quam magnam debitis corrupti, esse fugiat ullam tempore sint repellat dic
+ta numquam? Praesentium\r\n
+           deserunt omnis vero ipsa facere numquam itaque quo nisi autem voluptatum enim eius exercitat
+ionem odit similique dicta\r\n
+           quas, accusantium perspiciatis aliquid dolorem suscipit, quidem architecto fuga! Veniam plac
+eat fugiat excepturi dolores\r\n
+           soluta nisi debitis consequatur amet rerum quis commodi, dolor iste minus sed pariatur quae
+ducimus aut illo hic quod\r\n
+           ullam! Molestiae distinctio modi, assumenda tenetur totam perferendis eligendi error blandit
+iis? Libero odio ad nemo\r\n
+           assumenda sapiente veniam labore eaque aperiam, ex cumque corrupti. Reprehenderit dicta, ill
+um amet facilis facere neque\r\n
+           alias rerum, minus accusamus unde, molestiae laudantium atque dolorem quo repellat dolor quo
+s vitae sint possimus\r\n
+           temporibus ipsa rem. Necessitatibus natus dicta fugit, quis doloribus suscipit excepturi acc
+usantium laboriosam modi\r\n
+           culpa, dolores beatae repellendus maiores ratione quidem eos sequi possimus voluptatem.\r\n
+           """,
+         published_at: null,
+         created_at: "2022-03-23 08:52:26",
+         updated_at: "2022-03-23 08:57:35",
+       },
+       App\Models\Post {#4447
+         id: 2,
+         title: "Judul pertama saya",
+         excerpt: """
+           orem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem saepe, dolore facere
+dolorum dolores atque\r\n
+           officia aperiam, repellendus sit, quia sed neque quae earum veritatis provident hic id ratio
+ne quaerat.
+           """,
+         body: """
+           Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem saepe, dolore facere
+ dolorum dolores atque\r\n
+           officia aperiam, repellendus sit, quia sed neque quae earum veritatis provident hic id ratio
+ne quaerat. Deserunt quam,\r\n
+           ipsum, expedita voluptate vitae nam nobis, accusantium consequuntur possimus eveniet molesti
+ae doloribus inventore\r\n
+           dolore quasi tempore sunt blanditiis itaque id cumque aut animi vero ab? Repellendus eum par
+iatur magni repudiandae vel\r\n
+           placeat laboriosam quam magnam debitis corrupti, esse fugiat ullam tempore sint repellat dic
+ta numquam? Praesentium\r\n
+           deserunt omnis vero ipsa facere numquam itaque quo nisi autem voluptatum enim eius exercitat
+ionem odit similique dicta\r\n
+           quas, accusantium perspiciatis aliquid dolorem suscipit, quidem architecto fuga! Veniam plac
+eat fugiat excepturi dolores\r\n
+           soluta nisi debitis consequatur amet rerum quis commodi, dolor iste minus sed pariatur quae
+ducimus aut illo hic quod\r\n
+           ullam! Molestiae distinctio modi, assumenda tenetur totam perferendis eligendi error blandit
+iis? Libero odio ad nemo\r\n
+           assumenda sapiente veniam labore eaque aperiam, ex cumque corrupti. Reprehenderit dicta, ill
+um amet facilis facere neque\r\n
+           alias rerum, minus accusamus unde, molestiae laudantium atque dolorem quo repellat dolor quo
+s vitae sint possimus\r\n
+           temporibus ipsa rem. Necessitatibus natus dicta fugit, quis doloribus suscipit excepturi acc
+usantium laboriosam modi\r\n
+           culpa, dolores beatae repellendus maiores ratione quidem eos sequi possimus voluptatem.\r\n
+           """,
+         published_at: null,
+         created_at: "2022-03-23 09:09:51",
+         updated_at: "2022-03-23 09:09:51",
+       },
+     ],
+   }
+>>> Post::first()
+=> App\Models\Post {#4449
+     id: 1,
+     title: "judul kedua saya blog",
+     excerpt: """
+       orem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem saepe, dolore facere dolo
+rum dolores atque\r\n
+       officia aperiam, repellendus sit, quia sed neque quae earum veritatis provident hic id ratione q
+uaerat.
+       """,
+     body: """
+       Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem saepe, dolore facere dol
+orum dolores atque\r\n
+       officia aperiam, repellendus sit, quia sed neque quae earum veritatis provident hic id ratione q
+uaerat. Deserunt quam,\r\n
+       ipsum, expedita voluptate vitae nam nobis, accusantium consequuntur possimus eveniet molestiae d
+oloribus inventore\r\n
+       dolore quasi tempore sunt blanditiis itaque id cumque aut animi vero ab? Repellendus eum pariatu
+r magni repudiandae vel\r\n
+       placeat laboriosam quam magnam debitis corrupti, esse fugiat ullam tempore sint repellat dicta n
+umquam? Praesentium\r\n
+       deserunt omnis vero ipsa facere numquam itaque quo nisi autem voluptatum enim eius exercitatione
+m odit similique dicta\r\n
+       quas, accusantium perspiciatis aliquid dolorem suscipit, quidem architecto fuga! Veniam placeat
+fugiat excepturi dolores\r\n
+       soluta nisi debitis consequatur amet rerum quis commodi, dolor iste minus sed pariatur quae duci
+mus aut illo hic quod\r\n
+       ullam! Molestiae distinctio modi, assumenda tenetur totam perferendis eligendi error blanditiis?
+ Libero odio ad nemo\r\n
+       assumenda sapiente veniam labore eaque aperiam, ex cumque corrupti. Reprehenderit dicta, illum a
+met facilis facere neque\r\n
+       alias rerum, minus accusamus unde, molestiae laudantium atque dolorem quo repellat dolor quos vi
+tae sint possimus\r\n
+       temporibus ipsa rem. Necessitatibus natus dicta fugit, quis doloribus suscipit excepturi accusan
+tium laboriosam modi\r\n
+       culpa, dolores beatae repellendus maiores ratione quidem eos sequi possimus voluptatem.\r\n
+       """,
+     published_at: null,
+     created_at: "2022-03-23 08:52:26",
+     updated_at: "2022-03-23 08:57:35",
+   }
+>>> Post::pluck('title')
+=> Illuminate\Support\Collection {#4444
+     all: [
+       "judul kedua saya blog",
+       "Judul pertama saya",
+     ],
+   }
+>>> Post::find(2)
+=> App\Models\Post {#4436
+     id: 2,
+     title: "Judul pertama saya",
+     excerpt: """
+       orem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem saepe, dolore facere dolo
+rum dolores atque\r\n
+       officia aperiam, repellendus sit, quia sed neque quae earum veritatis provident hic id ratione q
+uaerat.
+       """,
+     body: """
+       Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem saepe, dolore facere dol
+orum dolores atque\r\n
+       officia aperiam, repellendus sit, quia sed neque quae earum veritatis provident hic id ratione q
+uaerat. Deserunt quam,\r\n
+       ipsum, expedita voluptate vitae nam nobis, accusantium consequuntur possimus eveniet molestiae d
+oloribus inventore\r\n
+       dolore quasi tempore sunt blanditiis itaque id cumque aut animi vero ab? Repellendus eum pariatu
+r magni repudiandae vel\r\n
+       placeat laboriosam quam magnam debitis corrupti, esse fugiat ullam tempore sint repellat dicta n
+umquam? Praesentium\r\n
+       deserunt omnis vero ipsa facere numquam itaque quo nisi autem voluptatum enim eius exercitatione
+m odit similique dicta\r\n
+       quas, accusantium perspiciatis aliquid dolorem suscipit, quidem architecto fuga! Veniam placeat
+fugiat excepturi dolores\r\n
+       soluta nisi debitis consequatur amet rerum quis commodi, dolor iste minus sed pariatur quae duci
+mus aut illo hic quod\r\n
+       ullam! Molestiae distinctio modi, assumenda tenetur totam perferendis eligendi error blanditiis?
+ Libero odio ad nemo\r\n
+       assumenda sapiente veniam labore eaque aperiam, ex cumque corrupti. Reprehenderit dicta, illum a
+met facilis facere neque\r\n
+       alias rerum, minus accusamus unde, molestiae laudantium atque dolorem quo repellat dolor quos vi
+tae sint possimus\r\n
+       temporibus ipsa rem. Necessitatibus natus dicta fugit, quis doloribus suscipit excepturi accusan
+tium laboriosam modi\r\n
+       culpa, dolores beatae repellendus maiores ratione quidem eos sequi possimus voluptatem.\r\n
+       """,
+     published_at: null,
+     created_at: "2022-03-23 09:09:51",
+     updated_at: "2022-03-23 09:09:51",
+   }
+>>>
+11. untuk menampilkan hasil exekusi html dalam laravel articelnya digunakan.
+{!! $post->body !!}
+12. cara kedua serta update data
+contoh
+>>> Post::create([
+... 'title' => 'judul kelima saya',
+... 'excerpt' => 'ini merupakan tes saja',
+... 'body'=>'<p>ini adalah area saya </p> <br> <p> saya suka ongding </p>'
+... ])
+[!] Aliasing 'Post' to 'App\Models\Post' for this Tinker session.
+=> App\Models\Post {#3517
+     title: "judul kelima saya",
+     excerpt: "ini merupakan tes saja",
+     body: "<p>ini adalah area saya </p> <br> <p> saya suka ongding </p>",
+     updated_at: "2022-03-23 10:04:52",
+     created_at: "2022-03-23 10:04:52",
+     id: 4,
+   }
+>>> Post::find(3)->update(['title' => 'Judul ke empat berubah'])
+=> true
+>>> Post::where('title', 'Judul ke empat berubah')->update(['excerpt' => 'expert ke 3 telah berubah'])
+=> 1
+>>>
+mencari sesuai category
+>>> Post::where('category_id',1)->get()
+=> Illuminate\Database\Eloquent\Collection {#3503
+     all: [
+       App\Models\Post {#3512
+         id: 1,
+         category_id: 1,
+         title: "Judul ke 1",
+         slug: "judul-ke-1",
+         excerpt: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Exer
+citationem saepe, dolore facere dolorum dolores atque",
+         body: "<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Est
+ nostrum eligendi blanditiis rerum possimus, maxime dolorem iure sunt enim ipsam
+ esse, quam quos necessitatibus? Cupiditate facilis unde sit sunt ab consectetur
+. Facilis, eveniet cumque? Sunt perspiciatis aperiam est soluta dolorem enim per
+ferendis esse? Possimus placeat sit quisquam aspernatur aperiam quae culpa, quo
+dolore. Ut reiciendis suscipit repudiandae, labore praesentium facilis a quia no
+bis expedita dolore ex minima corrupti enim quidem cupiditate doloribus commodi
+quas deleniti tenetur, soluta, non recusandae accusantium. Eligendi corrupti und
+e a quasi ex? Error eos, consequuntur dolor eveniet eligendi, dolorum provident
+est deleniti laboriosam magnam corrupti quasi?</p>",
+         published_at: null,
+         created_at: "2022-03-29 10:21:39",
+         updated_at: "2022-03-29 10:21:39",
+       },
+       App\Models\Post {#4442
+         id: 2,
+         category_id: 1,
+         title: "Judul ke 2",
+         slug: "judul-ke-2",
+         excerpt: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Exer
+citationem saepe, dolore facere dolorum dolores atque",
+         body: "<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Est
+ nostrum eligendi blanditiis rerum possimus, maxime dolorem iure sunt enim ipsam
+ esse, quam quos necessitatibus? Cupiditate facilis unde sit sunt ab consectetur
+. Facilis, eveniet cumque? Sunt perspiciatis aperiam est soluta dolorem enim per
+ferendis esse? Possimus placeat sit quisquam aspernatur aperiam quae culpa, quo
+dolore. Ut reiciendis suscipit repudiandae, labore praesentium facilis a quia no
+bis expedita dolore ex minima corrupti enim quidem cupiditate doloribus commodi
+quas deleniti tenetur, soluta, non recusandae accusantium. Eligendi corrupti und
+e a quasi ex? Error eos, consequuntur dolor eveniet eligendi, dolorum provident
+est deleniti laboriosam magnam corrupti quasi?</p>",
+         published_at: null,
+         created_at: "2022-03-29 10:22:30",
+         updated_at: "2022-03-29 10:22:30",
+       },
+     ],
+   }
+>>>
+
+cara menrapkan relasi elquen
+
+Dzaky Faihalariq Pir@DESKTOP-1NAPO7I MINGW64 /f/Data Asus/Aplikasi_Larafel/latihan1-laravel
+$ php artisan tinker
+Psy Shell v0.11.2 (PHP 8.1.0 — cli) by Justin Hileman
+>>> $post = Post::first()
+[!] Aliasing 'Post' to 'App\Models\Post' for this Tinker session.
+=> App\Models\Post {#4189
+     id: 1,
+     category_id: 1,
+     title: "Judul ke 1",
+     slug: "judul-ke-1",
+     excerpt: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercita
+tionem saepe, dolore facere dolorum dolores atque",
+     body: "<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Est nos
+trum eligendi blanditiis rerum possimus, maxime dolorem iure sunt enim ipsam ess
+e, quam quos necessitatibus? Cupiditate facilis unde sit sunt ab consectetur. Fa
+cilis, eveniet cumque? Sunt perspiciatis aperiam est soluta dolorem enim perfere
+ndis esse? Possimus placeat sit quisquam aspernatur aperiam quae culpa, quo dolo
+re. Ut reiciendis suscipit repudiandae, labore praesentium facilis a quia nobis
+expedita dolore ex minima corrupti enim quidem cupiditate doloribus commodi quas
+ deleniti tenetur, soluta, non recusandae accusantium. Eligendi corrupti unde a
+quasi ex? Error eos, consequuntur dolor eveniet eligendi, dolorum provident est
+deleniti laboriosam magnam corrupti quasi?</p>",
+     published_at: null,
+     created_at: "2022-03-29 10:21:39",
+     updated_at: "2022-03-29 10:21:39",
+   }
+>>> $post->category
+=> App\Models\Category {#4439
+     id: 1,
+     name: "Teknologi",
+     slug: "teknologi",
+     created_at: "2022-03-25 14:36:23",
+     updated_at: "2022-03-25 14:36:23",
+   }
+>>> $post->category->name
+=> "Teknologi"
+
+membuat seding atau data palsu di database larafel untuk testing dan dibaging
+
+- php artisan db:seed
+
+membuat factory atau data testing
+-php artisan make:factory PostFactory
+
+cara menggantikan fungsi relasi database dengan forgenky nya atau memberikan nama pengganti untuk forgenky nya
+
+public function author(){
+	return $this->belongsTo(User::class, 'user_id'); 
+}
+
+mengambil gambar unsplace dengan sintakas
+
+https://source.unsplash.com/1600x900/?nature,water
+
+membuat controler nya yang ada resourc untuk melakukan CRUD
+php artisan make:controller namafile --resource
+php artisan make:controller namafile --resource --model=phost
+=============================================
+
+latihan php 2
+-> php artisan untuk melihat apa aja nantinya untuk membuat file nya
+
+-> menghubungkan ke tabel lain
+cara 1:
+$table->unsignedBigInteger('album_id')->nullable();
+$table->foreign('album_id')->references('id')->on('albums')->onDelete('cascade');
+cara 2:
+ $table->foreignId('member_id')->constrained('members')->onDelete('cascade');
+
+/////////////////////////////////////
+Martin Mulyo Syahidin11.46
+======
+Schema::create('photos', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('album_id')->nullable();
+            $table->unsignedBigInteger('location_id')->nullable();
+            $table->foreignId('member_id')->constrained('members')->onDelete('cascade');
+
+            $table->string('judul', 120);
+            $table->string('penjelasan')->nullable();
+            $table->string('pribadi', 20);
+            $table->date('tanggal_unggah');
+            $table->date('tanggal_unggah');
+            $table->integer('view')->default(0);
+
+            $table->string('nama_file');
+
+            $table->foreign('album_id')->references('id')->on('albums')->onDelete('cascade');
+            $table->foreign('location_id')->references('id')->on('locations')->onDelete('cascade');
+        });
+///////////////////////////////////////
+tugas1 : buat migration database punya dea
+tugas2 : buat migration database punya masing masing sesuai tabel yang dibuat
+dl satu minggu malam rabu
+
+/////////////////////////////////////////
+dwonload laragon untuk berganti ganti php
+////////////////////////////////////////
+Martin Mulyo Syahidin13.32
+Route::get('/daftar-user', function () {
+    $users = User::all();
+
+    foreach ($users as $user) {
+        echo '<p>' . $user->name .'</p>';
+    }
+});
+Martin Mulyo Syahidin13.40
+composer install --ignore-platform-req=php
+Martin Mulyo Syahidin14.03
+{{ $nama }}
+public function index()
+    {
+        $nama = 'Martin';
+        $sekolah = 'SMA NEGERI 1 KOTA BEKASI';
+        $provinsi = 'JAWA BARAT';
+
+        // return view('admin.dasbor')
+        //     ->with([
+        //         'nama' => $nama,
+        //         'sekolah' => $sekolah
+        //     ]);
+
+        return view('admin.dasbor', compact('nama', 'sekolah', 'provinsi'));
+    }
+Martin Mulyo Syahidin14.10
+=======
+Schema::create('books', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            $table->string('author');
+            $table->string('description')->nullable();
+            $table->integer('stock')->default(0);
+            $table->timestamps();
+        });
+
+
+/////////////////////////////
+membuat controler sekalian menghubungkan ke model
+$php artisan make:controller namacontroller --model=namemodel
+// ingat di buat sesudah membuat model
+
+=====
+Route::get('/books', [BookController::class, 'index'])->name('lokasi htmlnya'); lokasi htmlnya = folder.file
+
+///////////////////////////////
+Martin Mulyo Syahidin14.37
+=======
+@extends('layouts.admin')
+
+@section('title', 'Tambah Buku Baru')
+
+@section('content')
+    
+@endsection
+Martin Mulyo Syahidin14.48
+$title = $request->title;
+        $author = $request->author;
+        $description = $request->description;
+        $stock = $request->stock;
+
+menyimpan database
+Martin Mulyo Syahidin14.51
+=====
+$book = new Book();
+        $book->title = $title;
+        $book->author = $author;
+        $book->description = $description;
+        $book->stock = $stock;
+        
+        $book->save();
+
+////////////////////////
+cara mencari kata kata 
+ctrl+F

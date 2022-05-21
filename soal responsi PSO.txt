@@ -1,0 +1,5 @@
+1. Buat direktori responsi yang didalamnya ada sub direktori responsi_1 yang mana didalamnya terdapat file yang berisi kritik dan saran selama pratikum. 
+2. Copy file tersebut ke dalam direktori utama
+3. Cari kata "kritik dan saran" menggunakan grep di direktori utama/root
+4. Urutkan kalimat berikut:
+Python,Bash,PHP,Rub,,PowerShel,HTML,CSS,perl,SQL,Java,Flutter,C,Kotlin

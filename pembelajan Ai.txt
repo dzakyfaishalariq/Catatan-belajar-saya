@@ -1,0 +1,5 @@
+Pembelajaran AI
+-> Sercing : pencarian pada metode AI
+ terdiri dari sistem Produksi
+	a. sebuah himpunan aturan
+	b. pengetahuan 
